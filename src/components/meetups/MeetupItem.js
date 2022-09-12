@@ -16,21 +16,19 @@ class MeetupItem extends Component {
     };
   }
 
-  toggleFavStatusHandler() {
-    const { itemIsFavorite } = this.context.itemIsFavorite(
-      this.props.meetupData.id,
-    );
-    const { addFavorite } = this.context.addFavorite;
-    const { removeFavorite } = this.context.removeFavorite;
-
-    if (itemIsFavorite === false) {
-      return addFavorite(this.props.meetupData);
-    }
-    return removeFavorite(this.props.meetupData.id);
-  }
-
   render() {
     const { meetupData } = this.props;
+    const { itemIsFavorite, addFavorite, removeFavorite } = this.context;
+
+    const toggleFavStatusHandler = () => {
+      const isFavorite = itemIsFavorite(meetupData.id);
+      if (isFavorite === false) {
+        this.setState({ itemIsFavorite: !isFavorite });
+        return addFavorite(meetupData);
+      }
+      this.setState({ itemIsFavorite: !isFavorite });
+      return removeFavorite(meetupData.id);
+    };
 
     return (
       <li className={classes.item}>
@@ -44,7 +42,7 @@ class MeetupItem extends Component {
             <p>{meetupData.description}</p>
           </div>
           <div className={classes.actions}>
-            <button type="button" onClick={this.toggleFavStatusHandler}>
+            <button type="button" onClick={toggleFavStatusHandler}>
               {this.state.itemIsFavorite
                 ? "Remove from Favorites"
                 : "To Favorites"}

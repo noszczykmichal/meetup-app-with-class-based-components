@@ -22,13 +22,13 @@ class App extends Component {
 
   addFavoriteHandler(favoriteMeetup) {
     this.setState((prevUserFavorites) => ({
-      userFavorites: prevUserFavorites.concat(favoriteMeetup),
+      userFavorites: prevUserFavorites.userFavorites.concat(favoriteMeetup),
     }));
   }
 
   removeFavoriteHandler(meetupId) {
     this.setState((prevUserFavorites) => ({
-      userFavorites: prevUserFavorites.filter(
+      userFavorites: prevUserFavorites.userFavorites.filter(
         (meetup) => meetup.id !== meetupId,
       ),
     }));
@@ -49,9 +49,9 @@ class App extends Component {
           value={{
             favorites: this.state.userFavorites,
             totalFavorites: this.state.userFavorites.length,
-            addFavorite: this.addFavoriteHandler,
-            removeFavorite: this.removeFavoriteHandler,
-            itemIsFavorite: this.itemIsFavoriteHandler,
+            addFavorite: this.addFavoriteHandler.bind(this),
+            removeFavorite: this.removeFavoriteHandler.bind(this),
+            itemIsFavorite: this.itemIsFavoriteHandler.bind(this),
             clearFavorite: this.clearFavoriteHandler,
           }}
         >
