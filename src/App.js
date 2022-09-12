@@ -1,6 +1,5 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 /* eslint-disable react/destructuring-assignment */
-/* eslint-disable no-useless-constructor */
 import React, { Suspense, Component } from "react";
 import { Route, Routes } from "react-router-dom";
 import FavoritesContext from "./store/favorites-context";

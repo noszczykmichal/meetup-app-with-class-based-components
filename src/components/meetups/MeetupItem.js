@@ -1,4 +1,4 @@
-// import { useContext } from "react";
+/* eslint-disable react/static-property-placement */
 import PropTypes from "prop-types";
 import { Component } from "react";
 
@@ -9,24 +9,14 @@ import FavoritesContext from "../../store/favorites-context";
 class MeetupItem extends Component {
   static contextType = FavoritesContext;
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      itemIsFavorite: false,
-    };
-  }
-
   render() {
     const { meetupData } = this.props;
     const { itemIsFavorite, addFavorite, removeFavorite } = this.context;
-
+    const isFavorite = itemIsFavorite(meetupData.id);
     const toggleFavStatusHandler = () => {
-      const isFavorite = itemIsFavorite(meetupData.id);
       if (isFavorite === false) {
-        this.setState({ itemIsFavorite: !isFavorite });
         return addFavorite(meetupData);
       }
-      this.setState({ itemIsFavorite: !isFavorite });
       return removeFavorite(meetupData.id);
     };
 
@@ -43,9 +33,7 @@ class MeetupItem extends Component {
           </div>
           <div className={classes.actions}>
             <button type="button" onClick={toggleFavStatusHandler}>
-              {this.state.itemIsFavorite
-                ? "Remove from Favorites"
-                : "To Favorites"}
+              {isFavorite ? "Remove from Favorites" : "To Favorites"}
             </button>
           </div>
         </Card>
