@@ -12,9 +12,6 @@ class AllMeetupsPage extends Component {
     };
   }
 
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [loadedMeetups, setLoadedMeetups] = useState([]);
-
   componentDidMount() {
     this.setIsLoading(true);
     fetch("https://meetup-app-ca8e7-default-rtdb.firebaseio.com/meetups.json")
@@ -41,31 +38,14 @@ class AllMeetupsPage extends Component {
     this.setState({ loadedMeetups: arrOfMeetups });
   }
 
-  // useEffect(() => {
-  // setIsLoading(true);
-  // fetch("https://meetup-app-ca8e7-default-rtdb.firebaseio.com/meetups.json")
-  //   .then((response) => response.json())
-  //   .then((data) => {
-  //     const fetchedMeetups = [];
-
-  //     Object.keys(data).forEach((meetup) =>
-  //       fetchedMeetups.push({
-  //         id: meetup,
-  //         ...data[meetup],
-  //       }),
-  //     );
-  //     setIsLoading(false);
-  //     setLoadedMeetups(fetchedMeetups);
-  //   });
-  // }, []);
-
   render() {
     let currContent;
+    const { isLoading, loadedMeetups } = this.state;
 
-    if (this.state.isLoading) {
+    if (isLoading) {
       currContent = <Spinner />;
     } else {
-      currContent = <MeetupList meetups={this.state.loadedMeetups} />;
+      currContent = <MeetupList meetups={loadedMeetups} />;
     }
 
     return (
