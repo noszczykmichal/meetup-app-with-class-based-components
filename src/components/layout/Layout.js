@@ -1,4 +1,6 @@
-import { useState, useContext } from "react";
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/static-property-placement */
+import { Component } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./Layout.module.css";
@@ -8,54 +10,80 @@ import MobileNavigation from "./MobileNavigation";
 import Modal from "../ui/Modal";
 import FavoritesContext from "../../store/favorites-context";
 
-function Layout({ children }) {
-  const [backdropVisible, toggleBackdrop] = useState(false);
-  const [mobileNavbarVisible, toggleNavbar] = useState(false);
-  const [modalVisible, toggleModal] = useState(false);
-  const favoriteCtx = useContext(FavoritesContext);
+class Layout extends Component {
+  static contextType = FavoritesContext;
 
-  const hideComponentsHandler = () => {
-    toggleBackdrop(false);
-    toggleModal(false);
-    toggleNavbar(false);
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      backdropVisible: false,
+      mobileNavbarVisible: false,
+      modalVisible: false,
+    };
+  }
 
-  const navbarHandler = () => {
-    toggleNavbar((prevState) => !prevState);
-    toggleBackdrop((prevState) => !prevState);
-  };
+  hideComponentsHandler() {
+    this.setState({
+      backdropVisible: false,
+      mobileNavbarVisible: false,
+      modalVisible: false,
+    });
+  }
 
-  const modalHandler = () => {
-    toggleModal(true);
-    toggleBackdrop(true);
-    toggleNavbar(false);
-  };
+  navbarHandler() {
+    this.setState((prevState) => ({
+      backdropVisible: !prevState.backdropVisible,
+      mobileNavbarVisible: !prevState.mobileNavbarVisible,
+    }));
+  }
 
-  const clearHandler = () => {
-    favoriteCtx.clearFavorite();
-    hideComponentsHandler();
-  };
+  modalHandler() {
+    this.setState({
+      backdropVisible: true,
+      mobileNavbarVisible: false,
+      modalVisible: true,
+    });
+  }
 
-  return (
-    <div>
-      <Backdrop clicked={hideComponentsHandler} show={backdropVisible} />
-      <MainNavigation
-        toggleClicked={navbarHandler}
-        trashIconClicked={modalHandler}
-      />
-      <MobileNavigation
-        linkClicked={navbarHandler}
-        show={mobileNavbarVisible}
-        trashIconClicked={modalHandler}
-      />
-      <Modal
-        show={modalVisible}
-        confirmButtonHandler={clearHandler}
-        cancelButtonHandler={hideComponentsHandler}
-      />
-      <main className={classes.main}>{children}</main>
-    </div>
-  );
+  // clearHandler() {
+  //   const { clearFavorite } = this.context;
+  //   clearFavorite();
+  //   this.hideComponentsHandler();
+  // }
+
+  render() {
+    const { clearFavorite } = this.context;
+    const { children } = this.props;
+    const { backdropVisible, mobileNavbarVisible, modalVisible } = this.state;
+    // const clearHandler = (name) => {
+    //   const { clearFavorite } = this.context;
+    //   console.log(this.context);
+    //   return clearFavorite(name);
+    // };
+    return (
+      <div>
+        <Backdrop
+          clicked={this.hideComponentsHandler.bind(this)}
+          show={backdropVisible}
+        />
+        <MainNavigation
+          toggleClicked={this.navbarHandler.bind(this)}
+          trashIconClicked={this.modalHandler.bind(this)}
+        />
+        <MobileNavigation
+          linkClicked={this.navbarHandler.bind(this)}
+          show={mobileNavbarVisible}
+          trashIconClicked={this.modalHandler.bind(this)}
+        />
+        <Modal
+          show={modalVisible}
+          confirmButtonHandler={clearFavorite.bind(this)}
+          cancelButtonHandler={this.hideComponentsHandler.bind(this)}
+        />
+        <main className={classes.main}>{children}</main>
+      </div>
+    );
+  }
 }
 
 Layout.propTypes = {
