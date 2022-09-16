@@ -1,5 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
-/* eslint-disable react/static-property-placement */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { Link } from "react-router-dom";
@@ -12,13 +10,6 @@ import TrashIcon from "../ui/TrashIcon";
 
 class MainNavigation extends Component {
   static contextType = FavoritesContext;
-
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     totalFavorites: this.context ? this.context.totalFavorites : 0,
-  //   };
-  // }
 
   render() {
     const { toggleClicked, trashIconClicked } = this.props;

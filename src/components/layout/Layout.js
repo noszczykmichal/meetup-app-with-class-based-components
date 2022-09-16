@@ -1,5 +1,3 @@
-/* eslint-disable react/jsx-no-bind */
-/* eslint-disable react/static-property-placement */
 import { Component } from "react";
 import PropTypes from "prop-types";
 
@@ -11,10 +9,11 @@ import Modal from "../ui/Modal";
 import FavoritesContext from "../../store/favorites-context";
 
 class Layout extends Component {
-  static contextType = FavoritesContext;
-
   constructor(props) {
     super(props);
+    this.hideComponentsHandler = this.hideComponentsHandler.bind(this);
+    this.navbarHandler = this.navbarHandler.bind(this);
+    this.modalHandler = this.modalHandler.bind(this);
     this.state = {
       backdropVisible: false,
       mobileNavbarVisible: false,
@@ -45,46 +44,39 @@ class Layout extends Component {
     });
   }
 
-  // clearHandler() {
-  //   const { clearFavorite } = this.context;
-  //   clearFavorite();
-  //   this.hideComponentsHandler();
-  // }
-
   render() {
     const { clearFavorite } = this.context;
     const { children } = this.props;
     const { backdropVisible, mobileNavbarVisible, modalVisible } = this.state;
-    // const clearHandler = (name) => {
-    //   const { clearFavorite } = this.context;
-    //   console.log(this.context);
-    //   return clearFavorite(name);
-    // };
+    const clearHandler = () => {
+      clearFavorite();
+      this.hideComponentsHandler();
+    };
     return (
       <div>
-        <Backdrop
-          clicked={this.hideComponentsHandler.bind(this)}
-          show={backdropVisible}
-        />
+        <Backdrop clicked={this.hideComponentsHandler} show={backdropVisible} />
         <MainNavigation
-          toggleClicked={this.navbarHandler.bind(this)}
-          trashIconClicked={this.modalHandler.bind(this)}
+          toggleClicked={this.navbarHandler}
+          trashIconClicked={this.modalHandler}
         />
         <MobileNavigation
-          linkClicked={this.navbarHandler.bind(this)}
+          linkClicked={this.navbarHandler}
           show={mobileNavbarVisible}
-          trashIconClicked={this.modalHandler.bind(this)}
+          trashIconClicked={this.modalHandler}
         />
         <Modal
           show={modalVisible}
-          confirmButtonHandler={clearFavorite.bind(this)}
-          cancelButtonHandler={this.hideComponentsHandler.bind(this)}
+          // eslint-disable-next-line react/jsx-no-bind
+          confirmButtonHandler={clearHandler.bind(this)}
+          cancelButtonHandler={this.hideComponentsHandler}
         />
         <main className={classes.main}>{children}</main>
       </div>
     );
   }
 }
+
+Layout.contextType = FavoritesContext;
 
 Layout.propTypes = {
   children: PropTypes.element.isRequired,

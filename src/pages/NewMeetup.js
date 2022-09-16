@@ -1,10 +1,14 @@
-/* eslint-disable react/jsx-no-bind */
 import PropTypes from "prop-types";
 import { Component } from "react";
 import { useNavigate } from "react-router-dom";
 import NewMeetupForm from "../components/meetups/NewMeetupForm";
 
 class NewMeetupPage extends Component {
+  constructor(props) {
+    super(props);
+    this.addMeetupHandler = this.addMeetupHandler.bind(this);
+  }
+
   addMeetupHandler(meetupData) {
     const { navigate } = this.props;
 
@@ -21,7 +25,7 @@ class NewMeetupPage extends Component {
     return (
       <section>
         <h1>Add New Meetup</h1>
-        <NewMeetupForm onAddMeetup={this.addMeetupHandler.bind(this)} />
+        <NewMeetupForm onAddMeetup={this.addMeetupHandler} />
       </section>
     );
   }

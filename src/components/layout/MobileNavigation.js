@@ -1,4 +1,3 @@
-/* eslint-disable react/static-property-placement */
 import { Component } from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
@@ -8,9 +7,6 @@ import classes from "./MobileNavigation.module.css";
 import TrashIcon from "../ui/TrashIcon";
 
 class MobileNavigation extends Component {
-  static contextType = FavoritesContext;
-  // const favoritesCtx = useContext(FavoritesContext);
-
   render() {
     const { show, linkClicked, trashIconClicked } = this.props;
     const { totalFavorites } = this.context;
@@ -49,6 +45,8 @@ class MobileNavigation extends Component {
     );
   }
 }
+
+MobileNavigation.contextType = FavoritesContext;
 
 MobileNavigation.propTypes = {
   show: PropTypes.bool.isRequired,

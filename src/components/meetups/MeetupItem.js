@@ -1,4 +1,3 @@
-/* eslint-disable react/static-property-placement */
 import PropTypes from "prop-types";
 import { Component } from "react";
 
@@ -7,8 +6,6 @@ import Card from "../ui/Card";
 import FavoritesContext from "../../store/favorites-context";
 
 class MeetupItem extends Component {
-  static contextType = FavoritesContext;
-
   render() {
     const { meetupData } = this.props;
     const { itemIsFavorite, addFavorite, removeFavorite } = this.context;
@@ -41,6 +38,8 @@ class MeetupItem extends Component {
     );
   }
 }
+
+MeetupItem.contextType = FavoritesContext;
 
 MeetupItem.propTypes = {
   meetupData: PropTypes.shape({
