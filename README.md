@@ -15,9 +15,9 @@
 
 ## General Information
 
-- This project is fork/copy of my repo that can be found [here](https://github.com/noszczykmichal/meetup-app).
+- This project is a fork/copy of my repo that can be found [here](https://github.com/noszczykmichal/meetup-app).
 - I've modified the original setup that was focused on using the functional components and [react hooks](https://reactjs.org/docs/hooks-intro.html) and instead I'm using here class-based components. Functional components are left only for the components that don't manage state on their own. ([here](https://github.com/noszczykmichal/meetup-app__with-class-based-components/commit/0772b58e29ad4a9d3db856ec8ce9702ee64175e3) you can find as well version that uses only class-based components).
-- I've made this copy to practice usage of class-based components whish is much different when compared to the functional components.
+- I've made this copy to practice usage of class-based components which is much different when compared to the functional components.
 
 ## Technologies Used
 
