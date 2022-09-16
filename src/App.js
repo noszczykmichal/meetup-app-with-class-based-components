@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
 import React, { Suspense, Component } from "react";
 import { Route, Routes } from "react-router-dom";
-import FavoritesContext from "./store/favorites-context";
+import { FavoritesContextProvider } from "./store/favorites-context";
 
 import Layout from "./components/layout/Layout";
 import AllMeetupsPage from "./pages/AllMeetups";
@@ -11,50 +11,9 @@ const NewMeetupPage = React.lazy(() => import("./pages/NewMeetup"));
 const FavoritesPage = React.lazy(() => import("./pages/Favorites"));
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      userFavorites: [],
-    };
-  }
-
-  addFavoriteHandler(favoriteMeetup) {
-    this.setState((prevUserFavorites) => ({
-      userFavorites: prevUserFavorites.userFavorites.concat(favoriteMeetup),
-    }));
-  }
-
-  removeFavoriteHandler(meetupId) {
-    this.setState((prevUserFavorites) => ({
-      userFavorites: prevUserFavorites.userFavorites.filter(
-        (meetup) => meetup.id !== meetupId,
-      ),
-    }));
-  }
-
-  itemIsFavoriteHandler(meetupId) {
-    const { userFavorites } = this.state;
-    return userFavorites.some((meetup) => meetup.id === meetupId);
-  }
-
-  clearFavoriteHandler() {
-    return this.setState({ userFavorites: [] });
-  }
-
   render() {
-    const { userFavorites } = this.state;
-
     return (
-      <FavoritesContext.Provider
-        value={{
-          favorites: userFavorites,
-          totalFavorites: userFavorites.length,
-          addFavorite: this.addFavoriteHandler.bind(this),
-          removeFavorite: this.removeFavoriteHandler.bind(this),
-          itemIsFavorite: this.itemIsFavoriteHandler.bind(this),
-          clearFavorite: this.clearFavoriteHandler.bind(this),
-        }}
-      >
+      <FavoritesContextProvider>
         <Layout>
           <Suspense fallback={<Spinner />}>
             <Routes>
@@ -64,7 +23,7 @@ class App extends Component {
             </Routes>
           </Suspense>
         </Layout>
-      </FavoritesContext.Provider>
+      </FavoritesContextProvider>
     );
   }
 }

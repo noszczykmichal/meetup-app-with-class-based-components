@@ -9,8 +9,6 @@ import classes from "./MainNavigation.module.css";
 import TrashIcon from "../ui/TrashIcon";
 
 class MainNavigation extends Component {
-  static contextType = FavoritesContext;
-
   render() {
     const { toggleClicked, trashIconClicked } = this.props;
     const { totalFavorites } = this.context;
@@ -43,6 +41,8 @@ class MainNavigation extends Component {
     );
   }
 }
+
+MainNavigation.contextType = FavoritesContext;
 
 MainNavigation.propTypes = {
   toggleClicked: PropTypes.func.isRequired,
