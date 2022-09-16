@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-/* eslint-disable react/destructuring-assignment */
 import React, { Suspense, Component } from "react";
 import { Route, Routes } from "react-router-dom";
 import FavoritesContext from "./store/favorites-context";
@@ -12,8 +11,8 @@ const NewMeetupPage = React.lazy(() => import("./pages/NewMeetup"));
 const FavoritesPage = React.lazy(() => import("./pages/Favorites"));
 
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       userFavorites: [],
     };
@@ -34,26 +33,29 @@ class App extends Component {
   }
 
   itemIsFavoriteHandler(meetupId) {
-    return this.state.userFavorites.some((meetup) => meetup.id === meetupId);
+    const { userFavorites } = this.state;
+    return userFavorites.some((meetup) => meetup.id === meetupId);
   }
 
   clearFavoriteHandler() {
-    this.setState({ userFavorites: [] });
+    return this.setState({ userFavorites: [] });
   }
 
   render() {
+    const { userFavorites } = this.state;
+
     return (
-      <Layout>
-        <FavoritesContext.Provider
-          value={{
-            favorites: this.state.userFavorites,
-            totalFavorites: this.state.userFavorites.length,
-            addFavorite: this.addFavoriteHandler.bind(this),
-            removeFavorite: this.removeFavoriteHandler.bind(this),
-            itemIsFavorite: this.itemIsFavoriteHandler.bind(this),
-            clearFavorite: this.clearFavoriteHandler,
-          }}
-        >
+      <FavoritesContext.Provider
+        value={{
+          favorites: userFavorites,
+          totalFavorites: userFavorites.length,
+          addFavorite: this.addFavoriteHandler.bind(this),
+          removeFavorite: this.removeFavoriteHandler.bind(this),
+          itemIsFavorite: this.itemIsFavoriteHandler.bind(this),
+          clearFavorite: this.clearFavoriteHandler.bind(this),
+        }}
+      >
+        <Layout>
           <Suspense fallback={<Spinner />}>
             <Routes>
               <Route path="/" exact element={<AllMeetupsPage />} />
@@ -61,8 +63,8 @@ class App extends Component {
               <Route path="/favorites" element={<FavoritesPage />} />
             </Routes>
           </Suspense>
-        </FavoritesContext.Provider>
-      </Layout>
+        </Layout>
+      </FavoritesContext.Provider>
     );
   }
 }

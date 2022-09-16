@@ -1,12 +1,9 @@
-/* eslint-disable react/static-property-placement */
 import { Component } from "react";
 import FavoritesContext from "../store/favorites-context";
 
 import MeetupList from "../components/meetups/MeetupList";
 
 class FavoritesPage extends Component {
-  static contextType = FavoritesContext;
-
   render() {
     const { totalFavorites, favorites } = this.context;
     return (
@@ -21,5 +18,7 @@ class FavoritesPage extends Component {
     );
   }
 }
+
+FavoritesPage.contextType = FavoritesContext;
 
 export default FavoritesPage;
