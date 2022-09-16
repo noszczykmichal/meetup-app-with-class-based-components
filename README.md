@@ -1,7 +1,7 @@
 # Meetup app
 
 > A small app for creating and managing meetups build with React.js  
-> Check live demo [_here_](https://meetup-app-ca8e7.web.app/).
+> Check live demo [_here_](https://meetup-with-class-components.web.app/).
 
 ## Table of Contents
 
@@ -15,16 +15,15 @@
 
 ## General Information
 
-- This project was built whilst doing course on React.js (more info in the section [Acknowledgements](#acknowledgements)).
-- In contrary to what was originally built by the instructor I've modified on my own the project to use React 18.
-- Additionally I've modified app to be responsive and to look good on all devices (at first project was focused on the desktops). I've added few components needed for improving UI e.g. animated Backdrop, Modal, Spinner etc.
+- This project is fork/copy of my repo that can be found [here](https://github.com/noszczykmichal/meetup-app).
+- I've modified the original setup that was focused on using the functional components and [react hooks](https://reactjs.org/docs/hooks-intro.html) and instead I'm using here class-based components. Functional components are left only for the components that don't manage state on their own. ([here](https://github.com/noszczykmichal/meetup-app__with-class-based-components/commit/0772b58e29ad4a9d3db856ec8ce9702ee64175e3) you can find as well version that uses only class-based components).
+- I've made this copy to practice usage of class-based components whish is much different when compared to the functional components.
 
 ## Technologies Used
 
 - [React 18](https://reactjs.org/blog/2022/03/29/react-v18.html)
 - [React-DOM](https://www.npmjs.com/package/react-dom)
 - [React-Router](https://github.com/remix-run/react-router)
-- [React Hooks](https://reactjs.org/docs/hooks-intro.html)
 - [React Transition Group](https://reactcommunity.org/react-transition-group/)
 - [ESLint](https://www.npmjs.com/package/eslint)
 - [Prettier](https://www.npmjs.com/package/prettier)
