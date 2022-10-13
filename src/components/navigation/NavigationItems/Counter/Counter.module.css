@@ -1,0 +1,12 @@
+.counter {
+  background-color: #cc2062;
+  color: white;
+  border-radius: 12px;
+  height: 1.5rem;
+  width: 2rem;
+  padding: 0 1rem;
+  margin-left: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
