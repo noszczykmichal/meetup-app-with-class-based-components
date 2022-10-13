@@ -1,0 +1,35 @@
+.mobile-navbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 500;
+  height: 100vh;
+  width: 70vw;
+  background-color: #fff;
+}
+
+.mobile-navbar--open {
+  animation: Open 0.5s ease-out forwards;
+}
+
+.mobile-navbar--closed {
+  animation: Closed 0.5s ease-out forwards;
+}
+
+@keyframes Open {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@keyframes Closed {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}

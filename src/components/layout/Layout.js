@@ -2,9 +2,9 @@ import { Component } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./Layout.module.css";
-import MainNavigation from "./MainNavigation";
+import Toolbar from "../navigation/Toolbar";
 import Backdrop from "../ui/Backdrop";
-import MobileNavigation from "./MobileNavigation";
+import MobileNavigation from "../navigation/MobileNavigation";
 import Modal from "../ui/Modal";
 import FavoritesContext from "../../store/favorites-context";
 
@@ -55,12 +55,13 @@ class Layout extends Component {
     return (
       <div>
         <Backdrop clicked={this.hideComponentsHandler} show={backdropVisible} />
-        <MainNavigation
+        <Toolbar
           toggleClicked={this.navbarHandler}
           trashIconClicked={this.modalHandler}
+          linkClicked={this.hideComponentsHandler}
         />
         <MobileNavigation
-          linkClicked={this.navbarHandler}
+          linkClicked={this.hideComponentsHandler}
           show={mobileNavbarVisible}
           trashIconClicked={this.modalHandler}
         />

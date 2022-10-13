@@ -1,0 +1,31 @@
+.navigation-item a {
+  text-decoration: none;
+  color: #77002e;
+}
+
+@media (min-width: 768px) {
+  .navigation-item {
+    margin-left: 2rem;
+    text-align: center;
+  }
+
+  .navigation-item a {
+    text-decoration: none;
+    text-align: center;
+    font-size: 1.2rem;
+    color: #fcb8d2;
+    text-align: center;
+  }
+
+  .navigation-item a:hover,
+  .navigation-item a:active,
+  .navigation-item a.active {
+    color: white;
+  }
+}
+
+@media (min-width: 992px) {
+  .navigation-item a {
+    font-size: 1.5rem;
+  }
+}
