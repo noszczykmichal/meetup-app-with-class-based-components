@@ -1,34 +1,27 @@
-.badge {
+.container {
   background-color: #cc2062;
-  border-radius: 12px;
+  border: 1px solid #cc2062;
+  border-radius: 0.75rem;
   height: 1.5rem;
   width: 2rem;
-  margin-left: 0.25rem;
-  display: flex;
+  margin-left: 0.5rem;
+  display: inline-flex;
   justify-content: center;
   align-items: center;
+  transition: filter 0.2s ease-out;
 }
 
-.badge__trash-icon {
+.container--inactive {
+  filter: grayscale(1);
+}
+
+.container__icon {
   fill: #fff;
-  transform: scale(0.9);
-  height: 1.5rem;
   color: white;
-  margin-left: 0.25rem;
 }
 
-.badge__trash-icon:hover,
-.badge__trash-icon:active,
-.badge__trash-icon:focus {
-  transform: scale(0.8);
-}
-
-@media (min-width: 768px) {
-  .badge{
-    background-color: #77002e;
-  }
-
-  .badge__trash-icon {
-    transform: scale(1);
-  }
+.container:not([disabled]) .container__icon:hover,
+.container:not([disabled]) .container__icon:focus,
+.container:not([disabled]) .container__icon:active {
+  transform: scale(0.75, 0.75);
 }
