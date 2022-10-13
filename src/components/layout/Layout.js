@@ -53,7 +53,7 @@ class Layout extends Component {
       this.hideComponentsHandler();
     };
     return (
-      <div>
+      <>
         <Backdrop clicked={this.hideComponentsHandler} show={backdropVisible} />
         <Toolbar
           toggleClicked={this.navbarHandler}
@@ -72,7 +72,7 @@ class Layout extends Component {
           cancelButtonHandler={this.hideComponentsHandler}
         />
         <main className={classes.main}>{children}</main>
-      </div>
+      </>
     );
   }
 }
