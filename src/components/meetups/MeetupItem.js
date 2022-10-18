@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
-import { itemIsFavoriteHandler } from "../../store/utility";
+import { itemIsFavoriteHandler } from "../../store_redux/utility";
 
 class MeetupItem extends Component {
   render() {

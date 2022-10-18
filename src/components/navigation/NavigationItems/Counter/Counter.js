@@ -1,15 +1,17 @@
-import { useSelector } from "react-redux";
+import PropTypes from "prop-types";
 
 import classes from "./Counter.module.css";
 
-function Counter() {
-  const totalFavorites = useSelector((state) => state.meetups.totalFavorites);
-
+function Counter({ totalFavorites }) {
   return (
     <div className={classes.counter}>
       <p>{totalFavorites}</p>
     </div>
   );
 }
+
+Counter.propTypes = {
+  totalFavorites: PropTypes.number.isRequired,
+};
 
 export default Counter;

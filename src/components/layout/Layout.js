@@ -1,6 +1,9 @@
+/* eslint-disable react/prefer-stateless-function */
 import { Component } from "react";
+import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
+import UIContext from "../../store_context/uiContext";
 import classes from "./Layout.module.css";
 import Toolbar from "../navigation/Toolbar";
 import Backdrop from "../ui/Backdrop";
@@ -8,76 +11,40 @@ import MobileNavigation from "../navigation/MobileNavigation";
 import Modal from "../ui/Modal";
 
 class Layout extends Component {
-  constructor(props) {
-    super(props);
-    this.hideComponentsHandler = this.hideComponentsHandler.bind(this);
-    this.navbarHandler = this.navbarHandler.bind(this);
-    this.modalHandler = this.modalHandler.bind(this);
-    this.state = {
-      backdropVisible: false,
-      mobileNavbarVisible: false,
-      modalVisible: false,
-    };
-  }
-
-  hideComponentsHandler() {
-    this.setState({
-      backdropVisible: false,
-      mobileNavbarVisible: false,
-      modalVisible: false,
-    });
-  }
-
-  navbarHandler() {
-    this.setState((prevState) => ({
-      backdropVisible: !prevState.backdropVisible,
-      mobileNavbarVisible: !prevState.mobileNavbarVisible,
-    }));
-  }
-
-  modalHandler() {
-    this.setState({
-      backdropVisible: true,
-      mobileNavbarVisible: false,
-      modalVisible: true,
-    });
-  }
-
   render() {
-    // const { clearFavorite } = this.context;
-    const { children } = this.props;
-    const { backdropVisible, mobileNavbarVisible, modalVisible } = this.state;
-    const clearHandler = () => {
-      // clearFavorite();
-      this.hideComponentsHandler();
+    const { clearAllFavs, children } = this.props;
+    const { hideAllModals } = this.context;
+
+    const confirmButtonHandler = () => {
+      hideAllModals();
+      clearAllFavs();
     };
     return (
       <>
-        <Backdrop clicked={this.hideComponentsHandler} show={backdropVisible} />
-        <Toolbar
-          toggleClicked={this.navbarHandler}
-          trashIconClicked={this.modalHandler}
-          linkClicked={this.hideComponentsHandler}
-        />
-        <MobileNavigation
-          linkClicked={this.hideComponentsHandler}
-          show={mobileNavbarVisible}
-          trashIconClicked={this.modalHandler}
-        />
-        <Modal
-          show={modalVisible}
-          // eslint-disable-next-line react/jsx-no-bind
-          confirmButtonHandler={clearHandler.bind(this)}
-          cancelButtonHandler={this.hideComponentsHandler}
-        />
+        <Backdrop />
+        <Toolbar />
+        <MobileNavigation />
+        <Modal onConfirmButtonClick={confirmButtonHandler} />
         <main className={classes.main}>{children}</main>
       </>
     );
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    clearAllFavs: () =>
+      dispatch({
+        type: "meetupSlice/clearAllFavorites",
+      }),
+  };
+};
+
+Layout.contextType = UIContext;
+
 Layout.propTypes = {
+  clearAllFavs: PropTypes.func.isRequired,
   children: PropTypes.element.isRequired,
 };
 
-export default Layout;
+export default connect(null, mapDispatchToProps)(Layout);
