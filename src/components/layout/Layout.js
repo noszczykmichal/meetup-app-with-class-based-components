@@ -6,7 +6,6 @@ import Toolbar from "../navigation/Toolbar";
 import Backdrop from "../ui/Backdrop";
 import MobileNavigation from "../navigation/MobileNavigation";
 import Modal from "../ui/Modal";
-import FavoritesContext from "../../store/favorites-context";
 
 class Layout extends Component {
   constructor(props) {
@@ -45,11 +44,11 @@ class Layout extends Component {
   }
 
   render() {
-    const { clearFavorite } = this.context;
+    // const { clearFavorite } = this.context;
     const { children } = this.props;
     const { backdropVisible, mobileNavbarVisible, modalVisible } = this.state;
     const clearHandler = () => {
-      clearFavorite();
+      // clearFavorite();
       this.hideComponentsHandler();
     };
     return (
@@ -76,8 +75,6 @@ class Layout extends Component {
     );
   }
 }
-
-Layout.contextType = FavoritesContext;
 
 Layout.propTypes = {
   children: PropTypes.element.isRequired,

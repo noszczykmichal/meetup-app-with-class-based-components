@@ -1,10 +1,9 @@
-import { useContext } from "react";
+import { useSelector } from "react-redux";
 
 import classes from "./Counter.module.css";
-import FavoritesContext from "../../../../store/favorites-context";
 
 function Counter() {
-  const { totalFavorites } = useContext(FavoritesContext);
+  const totalFavorites = useSelector((state) => state.meetups.totalFavorites);
 
   return (
     <div className={classes.counter}>

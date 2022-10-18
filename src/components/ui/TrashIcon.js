@@ -1,22 +1,26 @@
-import PropTypes from "prop-types";
-import { useContext } from "react";
+import { useSelector, useDispatch } from "react-redux";
 
+import { meetupActions } from "../../store/meetupSlice";
 import classes from "./TrashIcon.module.css";
-import FavoritesContext from "../../store/favorites-context";
 
-function TrashIcon({ clicked }) {
-  const { totalFavorites } = useContext(FavoritesContext);
+function TrashIcon() {
+  const totalFavorites = useSelector((state) => state.meetups.totalFavorites);
+  const dispatch = useDispatch();
   let attachedClasses = [classes.container];
 
   if (!totalFavorites) {
     attachedClasses = [classes.container, classes["container--inactive"]];
   }
 
+  const removeAllFavorites = () => {
+    //   dispatch(meetupActions.clearAllFavorites());
+  };
+
   return (
     <button
       type="button"
       className={attachedClasses.join(" ")}
-      onClick={clicked}
+      onClick={removeAllFavorites}
       disabled={!totalFavorites}
     >
       <svg
@@ -34,9 +38,5 @@ function TrashIcon({ clicked }) {
     </button>
   );
 }
-
-TrashIcon.propTypes = {
-  clicked: PropTypes.func.isRequired,
-};
 
 export default TrashIcon;

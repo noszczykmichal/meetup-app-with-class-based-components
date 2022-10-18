@@ -1,15 +1,16 @@
 import PropTypes from "prop-types";
 import { Component } from "react";
+import { connect } from "react-redux";
 
 import classes from "./MeetupItem.module.css";
 import Card from "../ui/Card";
-import FavoritesContext from "../../store/favorites-context";
+import { itemIsFavoriteHandler } from "../../store/utility";
 
 class MeetupItem extends Component {
   render() {
-    const { meetupData } = this.props;
-    const { itemIsFavorite, addFavorite, removeFavorite } = this.context;
-    const isFavorite = itemIsFavorite(meetupData.id);
+    const { meetupData, favorites, addFavorite, removeFavorite } = this.props;
+    const isFavorite = itemIsFavoriteHandler(favorites, meetupData.id);
+
     const toggleFavStatusHandler = () => {
       if (isFavorite === false) {
         return addFavorite(meetupData);
@@ -39,7 +40,26 @@ class MeetupItem extends Component {
   }
 }
 
-MeetupItem.contextType = FavoritesContext;
+const mapStateToProps = (state) => {
+  return {
+    favorites: state.meetups.favorites,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addFavorite: (meetupData) =>
+      dispatch({
+        type: "meetupSlice/addMeetupToFavorites",
+        payload: meetupData,
+      }),
+    removeFavorite: (meetupId) =>
+      dispatch({
+        type: "meetupSlice/removeMeetupFromFavorites",
+        payload: meetupId,
+      }),
+  };
+};
 
 MeetupItem.propTypes = {
   meetupData: PropTypes.shape({
@@ -49,6 +69,17 @@ MeetupItem.propTypes = {
     image: PropTypes.string,
     title: PropTypes.string,
   }).isRequired,
+  favorites: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      address: PropTypes.string,
+      description: PropTypes.string,
+      image: PropTypes.string,
+      title: PropTypes.string,
+    }),
+  ).isRequired,
+  addFavorite: PropTypes.func.isRequired,
+  removeFavorite: PropTypes.func.isRequired,
 };
 
-export default MeetupItem;
+export default connect(mapStateToProps, mapDispatchToProps)(MeetupItem);
