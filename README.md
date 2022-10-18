@@ -18,12 +18,15 @@
 - This project is a fork/copy of my repo that can be found [here](https://github.com/noszczykmichal/meetup-app).
 - I've modified the original setup that was focused on using the functional components and [react hooks](https://reactjs.org/docs/hooks-intro.html) and instead I'm using here class-based components. Functional components are left only for the components that don't manage state on their own. ([here](https://github.com/noszczykmichal/meetup-app__with-class-based-components/commit/0772b58e29ad4a9d3db856ec8ce9702ee64175e3) you can find as well version that uses only class-based components).
 - I've made this copy to practice usage of class-based components which is much different when compared to the functional components.
+- Recently I combined use of Redux and Context for managing different parts of app (Redux is used here for managing data that are fetch from the database, Context for managing UI state). I deliberately decided not to use React Hooks - partially because app was supposed to use class-based components (and React Hooks can't be used there so I've decided also not to use them in functional components) and because I wanted to practice development in setup where due to requirements we are forced not to use functional components and React Hooks altogether.
 
 ## Technologies Used
 
 - [React 18](https://reactjs.org/blog/2022/03/29/react-v18.html)
 - [React-DOM](https://www.npmjs.com/package/react-dom)
 - [React-Router](https://github.com/remix-run/react-router)
+- [Context](https://reactjs.org/docs/context.html)
+- [Redux](https://redux.js.org/introduction/getting-started)
 - [React Transition Group](https://reactcommunity.org/react-transition-group/)
 - [ESLint](https://www.npmjs.com/package/eslint)
 - [Prettier](https://www.npmjs.com/package/prettier)
