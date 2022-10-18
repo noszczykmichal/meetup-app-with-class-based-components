@@ -35,7 +35,7 @@ class NewMeetupForm extends Component {
 
     return (
       <Card>
-        <form action="" className={classes.form} onSubmit={submitHandler}>
+        <form className={classes.form} onSubmit={submitHandler}>
           <div className={classes.control}>
             <label htmlFor="title">
               Meetup Title

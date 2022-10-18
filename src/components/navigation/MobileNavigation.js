@@ -1,37 +1,32 @@
-import PropTypes from "prop-types";
 import { CSSTransition } from "react-transition-group";
 
 import classes from "./MobileNavigation.module.css";
 import NavigationItems from "./NavigationItems/NavigationItems";
+import UIContext from "../../store_context/uiContext";
 
-function MobileNavigation({ show, linkClicked, trashIconClicked }) {
+function MobileNavigation() {
   return (
-    <CSSTransition
-      in={show}
-      timeout={500}
-      classNames={{
-        enter: "",
-        enterActive: classes["mobile-navbar--open"],
-        exit: "",
-        exitActive: classes["mobile-navbar--closed"],
-      }}
-      mountOnEnter
-      unmountOnExit
-    >
-      <nav className={classes["mobile-navbar"]}>
-        <NavigationItems
-          onLinkClick={linkClicked}
-          onTrashIconClick={trashIconClicked}
-        />
-      </nav>
-    </CSSTransition>
+    <UIContext.Consumer>
+      {(context) => (
+        <CSSTransition
+          in={context.mobileNavbarOpen}
+          timeout={500}
+          classNames={{
+            enter: "",
+            enterActive: classes["mobile-navbar--open"],
+            exit: "",
+            exitActive: classes["mobile-navbar--closed"],
+          }}
+          mountOnEnter
+          unmountOnExit
+        >
+          <nav className={classes["mobile-navbar"]}>
+            <NavigationItems />
+          </nav>
+        </CSSTransition>
+      )}
+    </UIContext.Consumer>
   );
 }
-
-MobileNavigation.propTypes = {
-  show: PropTypes.bool.isRequired,
-  linkClicked: PropTypes.func.isRequired,
-  trashIconClicked: PropTypes.func.isRequired,
-};
 
 export default MobileNavigation;

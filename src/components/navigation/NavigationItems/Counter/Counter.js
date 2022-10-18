@@ -1,16 +1,17 @@
-import { useContext } from "react";
+import PropTypes from "prop-types";
 
 import classes from "./Counter.module.css";
-import FavoritesContext from "../../../../store/favorites-context";
 
-function Counter() {
-  const { totalFavorites } = useContext(FavoritesContext);
-
+function Counter({ totalFavorites }) {
   return (
     <div className={classes.counter}>
       <p>{totalFavorites}</p>
     </div>
   );
 }
+
+Counter.propTypes = {
+  totalFavorites: PropTypes.number.isRequired,
+};
 
 export default Counter;
